@@ -1,0 +1,1476 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>For Jerrymo — A Love Letter Forged in Fire</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #080609;
+            --ink: #f5edd8;
+            --muted: #b8a99a;
+            --red: #a8322c;
+            --deep-red: #6b1a17;
+            --gold: #d4af5a;
+            --gold-light: #f0d99c;
+            --paper: #131114;
+            --line: #3a2e28;
+            --rose: #c46b6b;
+            --blush: #e8a4a4;
+            --wine: #4a1520;
+            --midnight: #0f0a14;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: 'Lora', Georgia, serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .app {
+            min-height: 100vh;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(75, 30, 40, 0.25) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(50, 30, 60, 0.15) 0%, transparent 40%),
+                radial-gradient(ellipse at 20% 60%, rgba(100, 50, 30, 0.08) 0%, transparent 40%),
+                var(--bg);
+        }
+
+        /* --- Ambient floating particles --- */
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* --- Grain overlay --- */
+        .grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .06;
+            z-index: 2;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 200px 200px;
+        }
+
+        /* --- Falling petals --- */
+        .petal {
+            position: fixed;
+            width: 10px;
+            height: 16px;
+            background: linear-gradient(135deg, #d4707a, #a8322c);
+            border-radius: 80% 0 80% 0;
+            opacity: 0;
+            animation: petalFall linear infinite;
+            z-index: 1;
+            filter: blur(0.5px);
+        }
+
+        @keyframes petalFall {
+            0% {
+                transform: translate(0, -5vh) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translate(120px, 115vh) rotate(720deg) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        .p1 {
+            left: 8%;
+            animation-duration: 11s;
+            animation-delay: 0s;
+        }
+
+        .p2 {
+            left: 22%;
+            animation-duration: 14s;
+            animation-delay: 2s;
+        }
+
+        .p3 {
+            left: 38%;
+            animation-duration: 10s;
+            animation-delay: 4s;
+        }
+
+        .p4 {
+            left: 55%;
+            animation-duration: 13s;
+            animation-delay: 1s;
+        }
+
+        .p5 {
+            left: 68%;
+            animation-duration: 12s;
+            animation-delay: 3s;
+        }
+
+        .p6 {
+            left: 82%;
+            animation-duration: 15s;
+            animation-delay: 6s;
+        }
+
+        .p7 {
+            left: 92%;
+            animation-duration: 9s;
+            animation-delay: 5s;
+        }
+
+        .p8 {
+            left: 48%;
+            animation-duration: 16s;
+            animation-delay: 7s;
+        }
+
+        /* --- Progress bar --- */
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--deep-red), var(--red), var(--gold), var(--gold-light));
+            width: 0;
+            z-index: 100;
+            box-shadow: 0 0 20px rgba(212, 175, 90, 0.4);
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- Screens --- */
+        .screen {
+            min-height: 100svh;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .screen.active {
+            display: flex;
+            animation: screenIn 0.8s ease-out;
+        }
+
+        @keyframes screenIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Seal / subtitle --- */
+        .seal {
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 5px;
+            color: var(--gold);
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 16px;
+            text-shadow: 0 0 30px rgba(212, 175, 90, 0.3);
+        }
+
+        /* --- Hero section --- */
+        .hero {
+            text-align: center;
+            max-width: 780px;
+        }
+
+        .kanji {
+            font-size: 90px;
+            color: rgba(188, 174, 148, 0.2);
+            margin-bottom: 12px;
+            animation: kanjiPulse 4s ease-in-out infinite;
+            text-shadow: 0 0 60px rgba(168, 50, 44, 0.2);
+            user-select: none;
+        }
+
+        @keyframes kanjiPulse {
+
+            0%,
+            100% {
+                opacity: 0.2;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.35;
+                transform: scale(1.05);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(46px, 11vw, 90px);
+            line-height: 0.9;
+            margin: 0 0 24px;
+            letter-spacing: -2px;
+            font-weight: 700;
+        }
+
+        .hero h1 .name {
+            color: var(--red);
+            display: block;
+            text-shadow: 0 0 40px rgba(168, 50, 44, 0.3);
+            animation: nameGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes nameGlow {
+
+            0%,
+            100% {
+                text-shadow: 0 0 40px rgba(168, 50, 44, 0.3);
+            }
+
+            50% {
+                text-shadow: 0 0 60px rgba(168, 50, 44, 0.5), 0 0 100px rgba(168, 50, 44, 0.2);
+            }
+        }
+
+        .hero h1 .sub {
+            font-size: clamp(24px, 5vw, 42px);
+            color: var(--gold-light);
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: 0;
+            line-height: 1.3;
+            display: block;
+            margin-top: 8px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--muted);
+            max-width: 580px;
+            margin: 0 auto 32px;
+            font-style: italic;
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            font-family: 'Cinzel', serif;
+            border: 1px solid var(--gold);
+            background: linear-gradient(135deg, rgba(20, 18, 15, 0.9), rgba(30, 25, 20, 0.9));
+            color: var(--ink);
+            padding: 16px 32px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(212, 175, 90, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, rgba(40, 30, 20, 0.9), rgba(50, 40, 28, 0.9));
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(212, 175, 90, 0.15), 0 0 20px rgba(168, 50, 44, 0.1);
+            border-color: var(--gold-light);
+        }
+
+        .btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .tiny {
+            font-size: 11px;
+            color: #5e554c;
+            margin-top: 20px;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Panel / card --- */
+        .panel {
+            width: min(780px, 100%);
+            background: linear-gradient(155deg, rgba(23, 18, 22, 0.95), rgba(13, 10, 16, 0.95));
+            border: 1px solid var(--line);
+            box-shadow:
+                0 30px 100px rgba(0, 0, 0, 0.6),
+                0 0 80px rgba(168, 50, 44, 0.04),
+                inset 0 1px 0 rgba(212, 175, 90, 0.05);
+            padding: clamp(30px, 6vw, 60px);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid rgba(212, 175, 90, 0.08);
+            pointer-events: none;
+        }
+
+        .panel::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.3;
+        }
+
+        /* --- Chapter label --- */
+        .chapter {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.9;
+            text-shadow: 0 0 20px rgba(212, 175, 90, 0.2);
+        }
+
+        .panel h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(32px, 7vw, 56px);
+            margin: 14px 0 22px;
+            font-weight: 600;
+            line-height: 1.1;
+        }
+
+        .panel p {
+            font-size: 17px;
+            line-height: 1.9;
+            color: #cdc4b8;
+            font-style: italic;
+        }
+
+        /* --- Quote block --- */
+        .quote {
+            border-left: 2px solid var(--red);
+            padding: 8px 0 8px 22px;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: #f0e5d0;
+            margin: 28px 0;
+            font-size: 20px;
+            line-height: 1.7;
+            position: relative;
+        }
+
+        .quote::before {
+            content: '"';
+            position: absolute;
+            left: -8px;
+            top: -20px;
+            font-size: 80px;
+            color: rgba(168, 50, 44, 0.15);
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* --- Choices / buttons row --- */
+        .choices {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+
+        /* --- Card grid --- */
+        .cardgrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin: 30px 0;
+        }
+
+        .memory {
+            padding: 24px;
+            background: linear-gradient(145deg, rgba(17, 14, 20, 0.8), rgba(10, 8, 14, 0.9));
+            border: 1px solid rgba(60, 50, 42, 0.6);
+            min-height: 150px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--rose), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .memory:hover {
+            border-color: rgba(196, 107, 107, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .memory:hover::before {
+            opacity: 1;
+        }
+
+        .memory b {
+            display: block;
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .memory span {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #b0a599;
+            font-style: italic;
+        }
+
+        /* --- Progress bar inside panels --- */
+        .bar {
+            height: 6px;
+            background: rgba(41, 37, 38, 0.6);
+            margin: 28px 0;
+            overflow: hidden;
+            border-radius: 3px;
+        }
+
+        .bar i {
+            display: block;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--deep-red), var(--red), var(--gold));
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 3px;
+            box-shadow: 0 0 15px rgba(212, 175, 90, 0.3);
+        }
+
+        /* --- Boss section --- */
+        .boss {
+            text-align: center;
+        }
+
+        .enemy {
+            font-size: 56px;
+            margin: 16px;
+            animation: enemyHover 2s ease-in-out infinite;
+        }
+
+        @keyframes enemyHover {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .arena {
+            margin: 30px auto;
+            width: min(500px, 100%);
+            padding: 28px;
+            border: 1px solid rgba(60, 48, 44, 0.6);
+            background: linear-gradient(180deg, rgba(10, 8, 13, 0.9), rgba(15, 10, 14, 0.9));
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .arena::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(180deg, rgba(168, 50, 44, 0.1), transparent);
+            pointer-events: none;
+            border-radius: 2px;
+        }
+
+        .attack {
+            font-size: 14px;
+            color: #c6b9aa;
+            margin: 12px;
+            font-style: italic;
+            min-height: 20px;
+        }
+
+        .parry {
+            font-size: 14px;
+            min-width: 160px;
+            padding: 14px 28px;
+            animation: parryPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes parryPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 rgba(168, 50, 44, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(168, 50, 44, 0.2);
+            }
+        }
+
+        /* --- Photo placeholder --- */
+        .photo {
+            height: 220px;
+            border: 1px dashed rgba(102, 95, 85, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #81786d;
+            text-align: center;
+            padding: 24px;
+            margin: 20px 0;
+            background: linear-gradient(135deg, rgba(22, 20, 20, 0.6), rgba(11, 12, 13, 0.6));
+            font-style: italic;
+            transition: border-color 0.3s ease;
+        }
+
+        .photo:hover {
+            border-color: rgba(196, 107, 107, 0.4);
+        }
+
+        /* --- Final section --- */
+        .final {
+            text-align: center;
+        }
+
+        .final h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(40px, 9vw, 72px);
+        }
+
+        .heart {
+            font-size: 60px;
+            margin: 14px;
+            display: inline-block;
+            animation: heartbeat 1.2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.15);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+
+            45% {
+                transform: scale(1.1);
+            }
+
+            60% {
+                transform: scale(1);
+            }
+        }
+
+        .golden-text {
+            color: var(--gold-light);
+            text-shadow: 0 0 40px rgba(212, 175, 90, 0.3);
+        }
+
+        .rose-text {
+            color: var(--rose);
+        }
+
+        /* --- Divider --- */
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 24px auto;
+            opacity: 0.5;
+        }
+
+        /* --- Nav dots --- */
+        .nav {
+            position: fixed;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            gap: 8px;
+            z-index: 50;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(73, 66, 58, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .dot.on {
+            background: var(--gold);
+            box-shadow: 0 0 10px rgba(212, 175, 90, 0.4);
+            transform: scale(1.3);
+        }
+
+        /* --- Sparkle on final screen --- */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold-light);
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* --- Typewriter effect --- */
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 3s steps(40) 0.5s forwards;
+            width: 0;
+            display: inline-block;
+        }
+
+        @keyframes typing {
+            to {
+                width: 100%;
+            }
+        }
+
+        /* --- Responsive --- */
+        @media(max-width:520px) {
+            .screen {
+                padding: 24px 16px;
+            }
+
+            .panel {
+                padding: 28px 20px;
+            }
+
+            .panel::before {
+                inset: 6px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .kanji {
+                font-size: 65px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .choices {
+                flex-direction: column;
+            }
+
+            .choices .btn {
+                width: 100%;
+            }
+
+            .cardgrid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- GTA 6 Countdown --- */
+        .gta-screen {
+            text-align: center;
+        }
+
+        .gta-badge {
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 6px;
+            color: #7fff5a;
+            text-transform: uppercase;
+            opacity: 0.85;
+            margin-bottom: 16px;
+            text-shadow: 0 0 20px rgba(127, 255, 90, 0.4);
+        }
+
+        .gta-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(36px, 9vw, 70px);
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, #7fff5a, #c6ff80, #fff59d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            filter: drop-shadow(0 0 30px rgba(127, 255, 90, 0.35));
+        }
+
+        .gta-subtitle {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            color: #b0c8a0;
+            font-size: 17px;
+            margin-bottom: 36px;
+        }
+
+        .countdown-grid {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 32px 0;
+        }
+
+        .countdown-unit {
+            background: linear-gradient(155deg, rgba(20, 30, 18, 0.95), rgba(10, 18, 10, 0.95));
+            border: 1px solid rgba(127, 255, 90, 0.2);
+            box-shadow: 0 0 30px rgba(127, 255, 90, 0.05), inset 0 1px 0 rgba(127, 255, 90, 0.07);
+            padding: 24px 20px 18px;
+            min-width: 90px;
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .countdown-unit:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(127, 255, 90, 0.12);
+        }
+
+        .countdown-unit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #7fff5a, transparent);
+            opacity: 0.4;
+        }
+
+        .countdown-num {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(36px, 8vw, 60px);
+            font-weight: 700;
+            color: #7fff5a;
+            text-shadow: 0 0 30px rgba(127, 255, 90, 0.5);
+            line-height: 1;
+            display: block;
+            letter-spacing: -1px;
+        }
+
+        .countdown-label {
+            font-family: 'Cinzel', serif;
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #5a7a50;
+            text-transform: uppercase;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .gta-note {
+            font-style: italic;
+            color: #7a9070;
+            font-size: 15px;
+            margin-top: 8px;
+            line-height: 1.8;
+        }
+
+        .gta-released {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 600;
+            color: #7fff5a;
+            text-shadow: 0 0 40px rgba(127, 255, 90, 0.5);
+            margin: 20px 0;
+            animation: nameGlow 2s ease-in-out infinite;
+        }
+
+        /* --- Memory card icon glyph --- */
+        .memory-icon {
+            font-size: 26px;
+            margin-bottom: 12px;
+            display: block;
+            filter: drop-shadow(0 0 8px rgba(196, 107, 107, 0.4));
+        }
+
+        /* --- Staggered card entrance --- */
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(24px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .screen.active .memory {
+            animation: cardIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .screen.active .memory:nth-child(1) {
+            animation-delay: 0.10s;
+        }
+
+        .screen.active .memory:nth-child(2) {
+            animation-delay: 0.22s;
+        }
+
+        .screen.active .memory:nth-child(3) {
+            animation-delay: 0.34s;
+        }
+
+        .screen.active .memory:nth-child(4) {
+            animation-delay: 0.46s;
+        }
+
+        .screen.active .memory:nth-child(5) {
+            animation-delay: 0.58s;
+        }
+
+        .screen.active .memory:nth-child(6) {
+            animation-delay: 0.70s;
+        }
+
+        /* --- Intro prose on memory screen --- */
+        .memory-intro {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #b8ae9f;
+            font-style: italic;
+            margin-bottom: 28px;
+        }
+
+        /* --- Closing quote on memory screen --- */
+        .memory-close {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 19px;
+            line-height: 1.8;
+            color: #e8ddd0;
+            text-align: center;
+            margin: 28px 0 8px;
+            font-style: italic;
+        }
+
+        .memory-close em {
+            color: var(--rose);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <div class="grain"></div>
+        <div class="progress" id="progress"></div>
+
+        <!-- Particles -->
+        <div class="particles" id="particles"></div>
+
+        <!-- Petals -->
+        <div class="petal p1"></div>
+        <div class="petal p2"></div>
+        <div class="petal p3"></div>
+        <div class="petal p4"></div>
+        <div class="petal p5"></div>
+        <div class="petal p6"></div>
+        <div class="petal p7"></div>
+        <div class="petal p8"></div>
+
+        <!-- ===== SCREEN 0: LANDING ===== -->
+        <section class="screen active" id="screen-0">
+            <div class="hero">
+                <div class="seal">A love letter, woven across oceans & whispered through stars</div>
+                <div class="kanji">狼</div>
+                <h1>
+                    <span class="name">Jerrymo,</span>
+                    <span class="sub">my heart wrote this for you.</span>
+                </h1>
+                <p>You are in Germany. I am in Canada. And the sky between us holds more longing than any poem could
+                    carry. So I built you a world instead — a journey through everything you mean to me.</p>
+                <button class="btn" onclick="next()">ENTER OUR WORLD ✦</button>
+                <div class="tiny">A journey of devotion · best experienced alone, with your whole heart
+                    open</div>
+            </div>
+        </section>
+
+        <!-- ===== SCREEN 1: PROLOGUE ===== -->
+        <section class="screen" id="screen-1">
+            <div class="panel">
+                <div class="chapter">Prologue · Where Fate First Planted Its Seed</div>
+                <h2>Before the universe gave you to me.</h2>
+                <p>We crossed paths in college in 2018, two souls brushing against each other without knowing why. At
+                    the time, I didn't understand that the universe was planting something in me. A feeling that would
+                    lie dormant for years, waiting for the perfect season to bloom.</p>
+                <p>Then came 2025. An Instagram story with a line that caught my attention. Felt playful and I decided
+                    to reply. And suddenly, every star that had
+                    been silently rearranging itself for seven years finally fell into place.</p>
+                <div class="quote">The moment we reconnected, something inside me whispered with absolute certainty:
+                    <em>"This soul… this is the one I want to build my entire world around. I want to be his.
+                        Completely, Endlessly, Eternally."</em>
+                </div>
+                <p>It was a <strong>recognition</strong> my heart had been waiting for yours all along, and finally,
+                    <em>finally</em>, we found our way back to each other.
+                </p>
+                <div class="divider"></div>
+                <button class="btn" onclick="next()">FOLLOW THE THREAD OF FATE →</button>
+            </div>
+        </section>
+
+        <!-- ===== SCREEN 2: MEMORY FRAGMENT I ===== -->
+        <section class="screen" id="screen-2">
+            <div class="panel">
+                <div class="chapter">Memory Fragment I · The Tender Architecture of Us</div>
+                <h2>You are a thousand tiny miracles.</h2>
+                <p class="memory-intro">Every time I try to describe you to someone, words collapse under the weight
+                    of everything you are. So let me just collect the moments — the small, sacred, achingly beautiful
+                    ones — that made me realize I am the luckiest person alive to know you.
+                </p>
+                <div class="cardgrid">
+                    <div class="memory">
+                        <span class="memory-icon">🌙</span>
+                        <b>Your Morning Eyes</b>
+                        <span>The way your sleepy eyes flutter open and find me through the screen. That single,
+                            soft "Good morning Chundu" from you carries all the love in this world,
+                            Jerrymo.</span>
+                    </div>
+                    <div class="memory">
+                        <span class="memory-icon">🥺</span>
+                        <b>"Parukuttaaa."</b>
+                        <span>That's all it takes. When you call me that, my heart melts instantly. Every worry
+                            inside me dissolves into nothing.</span>
+                    </div>
+                    <div class="memory">
+                        <span class="memory-icon">✨</span>
+                        <b>Your Beautiful Mind</b>
+                        <span>The way you suddenly start telling me about something you love — a game, a movie,
+                            an entire manga described in intricate detail. Unscripted, unfiltered, eyes lit with
+                            genuine wonder. I could listen to you love things forever, Jerrymo.</span>
+                    </div>
+                    <div class="memory">
+                        <span class="memory-icon">😄</span>
+                        <b>Your Laugh</b>
+                        <span>The real one. The one you can't contain, that escapes before you even mean to let
+                            it. Hearing you laugh is my favourite
+                            sound in every language.</span>
+                    </div>
+                    <div class="memory">
+                        <span class="memory-icon">🤍</span>
+                        <b>The Way You Stay</b>
+                        <span>When I go quiet, when I spiral, when I'm too much — you don't leave. You
+                            just quietly wait for me, right there, without making me feel small for it.
+                            That steadiness is the safest place I have ever known.</span>
+                    </div>
+                    <div class="memory">
+                        <span class="memory-icon">📞</span>
+                        <b>Every Unexpected Call</b>
+                        <span>When you call just because you felt like knowing what I'm upto, or because you simply
+                            wanted to hear my voice — those calls are the ones I replay the most. You chose
+                            to reach for me, and that always means everything.</span>
+                    </div>
+                </div>
+                <p class="memory-close">And before I even noticed it happening —<br>
+                    <em>you were already everywhere inside me.</em>
+                </p>
+                <div class="divider"></div>
+                <button class="btn" onclick="next()">REST AT THE SHRINE OF US ✦</button>
+            </div>
+        </section>
+
+        <!-- ===== SCREEN 3: MEMORY FRAGMENT II ===== -->
+        <section class="screen" id="screen-3">
+            <div class="panel">
+                <div class="chapter">Memory Fragment II · The Ocean Between Heartbeats</div>
+                <h2>The distance that dared to separate us.</h2>
+                <p>Canada and Germany. Nine thousand kilometers. Six hours of stolen time. An ocean that doesn't
+                    understand that two hearts beating in sync don't care about geography.</p>
+                <p>And just when we thought we were ready to fight this distance, no matter what, there was another
+                    trial. One that required its own kind of quiet bravery.</p>
+
+                <p>Convincing the people we love that <em>this</em> was real. That what we felt across continents could
+                    burn brighter than what was easy to find right outside our doorsteps. That love was never about
+                    conveniently choosing the person next door. It was about choosing the person your heart wanted, even
+                    when the world gave you every reason not to. It was about fighting for that love, no matter how many
+                    miles stood between us.</p>
+
+                <p>Our love doesn't shrink with distance, kunja.</p>
+                <div class="bar"><i style="width:82%"></i></div>
+                <p style="text-align:center;color:#9f968b;font-family:'Cinzel',serif;font-size:12px;letter-spacing:3px">
+                    LONG-DISTANCE DEVOTION: UNBREAKABLE</p>
+                <div class="quote">Every night when the screen goes dark when you leave by 7pm, Jerrymo, I press my
+                    hands and lips against the phone glass and
+                    pretend I can feel the warmth of yours on the other side. I ache for you in the most beautiful way.
+                </div>
+                <div class="divider"></div>
+                <button class="btn" onclick="next()">FACE WHAT TRIED TO BREAK US ⚔</button>
+            </div>
+        </section>
+
+        <!-- ===== SCREEN 4: BOSS FIGHT ===== -->
+        <section class="screen" id="screen-4">
+            <div class="panel boss">
+                <div class="chapter">Boss Fight · The Distance That Dared</div>
+                <h2>THE NINE THOUSAND KILOMETERS</h2>
+                <div class="enemy">⚔️</div>
+                <p>It whispers that we are too far apart. That love cannot survive the cold miles. That the ache will
+                    become too heavy to carry.</p>
+                <p class="attack" id="attack">The Distance is preparing to strike at your heart...</p>
+                <div class="arena">
+                    <button class="btn parry" onclick="parry()">DEFLECT WITH LOVE</button>
+                    <div class="bar"><i id="bossbar"></i></div>
+                    <div id="hits" style="color:#9e968d;font-size:13px;margin-top:8px">Deflections: 0 / 3</div>
+                </div>
+                <p id="bossmsg" style="color:#9e968d;font-style:italic">Some battles are not won by closing the gap,
+                    Jerrymo. They are won by refusing to give up, with every fiber of your soul</p>
+            </div>
+        </section>
+
+        <!-- ===== SCREEN 5: THE VOW ===== -->
+        <section class="screen" id="screen-5">
+            <div class="panel">
+                <div class="chapter">Memory Fragment III · Where Forever Began</div>
+                <h2>And then, Jerrymo, you became mine — and I became yours.</h2>
+                <p>Somewhere between all the midnight calls and the "Goodnight baby, I love you"s,
+                    between all the family conversations that felt like interviews and the tears we shared at the
+                    thought
+                    of losing each other
+                </p>
+                <p>Somewhere in the middle of all of that, Jerrymo… we made it. We <em>actually</em> made it.</p>
+                <div
+                    style="width:100%;margin:20px 0;border:1px solid rgba(212,175,90,0.2);box-shadow:0 20px 60px rgba(0,0,0,0.5);background:#08060a;display:flex;align-items:center;justify-content:center;">
+                    <img src="Wedding_photo.JPG" alt="Our wedding day — where two souls became one story"
+                        style="width:100%;height:auto;display:block;">
+                </div>
+                <p>Our wedding day was the universe's way of saying:
+                    <em>"You fought for this. You earned this. Now live in it. Beautifully, endlessly."</em>
+                </p>
+                <div class="divider"></div>
+                <button class="btn" onclick="next()">CONTINUE THE CHRONICLE ✦</button>
+            </div>
+        </section>
+
+        <!-- ===== SCREEN 6: THE SHINOBI'S PATH ===== -->
+        <section class="screen" id="screen-6">
+            <div class="panel">
+                <div class="chapter">The Shinobi's Heart · A Portrait of the Man I Adore</div>
+                <h2>Let me tell you who you are, Jerrymo.</h2>
+                <div class="cardgrid">
+                    <div class="memory">
+                        <b>Unwavering.</b>
+                        <span>You stay, Jerrymo. Especially when staying is the hardest thing in the world. You stay,
+                            quietly, understanding every bit of my silence.</span>
+                    </div>
+                    <div class="memory">
+                        <b>Beautifully Honest.</b>
+                        <span>You say what you mean with a clarity that takes my breath away. In a world full of
+                            riddles, Jerrymo, you are the most beautiful straight line. I never have to wonder
+                            where I stand with you.</span>
+                    </div>
+                    <div class="memory">
+                        <b>Quietly Kind.</b>
+                        <span>You notice the people that the world overlooks. You care in ways you don't even realize.
+                            I have never seen you blame someone, even when you could have so easily. You always found a
+                            way to understand before you judged.</span>
+                    </div>
+                    <div class="memory">
+                        <b>Grounded & Real.</b>
+                        <span>No masks. No performances. You are the calm in every room.</span>
+                    </div>
+                    <div class="memory">
+                        <b>Deeply Empathetic.</b>
+                        <span>You hold space for my chaos like it's the most natural thing in the world. You hear my
+                            reasons and try to understand. You correct me when I am wrong. And that is the most intimate
+                            gift anyone has ever
+                            given.</span>
+                    </div>
+                    <div class="memory">
+                        <b>Adorably Obsessed.</b>
+                        <span>Games, football, movies. You are the most passionately nerdy soul I know. You play like
+                            there is nobody to compete with, you just play for the experience. I think so many people
+                            are missing the point you understood years ago.</span>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <button class="btn" onclick="next()">ONE LAST BATTLE AWAITS →</button>
+            </div>
+        </section>
+
+        <!-- ===== SCREEN 7: FINAL BOSS ===== -->
+        <section class="screen" id="screen-7">
+            <div class="panel boss">
+                <div class="chapter">Final Boss · The Turning of a Year</div>
+                <h2 class="golden-text">AGE 27</h2>
+                <div class="enemy">🐺</div>
+                <p>You defeated Sekiro's hardest bosses without flinching. You survived nine thousand kilometers of
+                    longing. You survived the trial of families and the weight of doubt. You survived me whispering
+                    <em>"Ithengane sheriyaavaana???"</em> approximately fourteen thousand times because I still cannot
+                    believe we actually happened. I got the man of my dreams. And I am pretty sure you are thinking,
+                    <em>"What is all this crap this girl is making up?"</em> But if you could see inside my heart, and
+                    see you through my eyes, you would understand that you are everything I ever wished for.
+                </p>
+
+                <p>So this final boss, my love? <strong>You were born for this.</strong></p>
+                <div class="divider"></div>
+                <button class="btn" onclick="next()">CLAIM YOUR VICTORY, JERRYMO ✦</button>
+            </div>
+        </section>
+
+        <!-- ===== SCREEN 8: VICTORY / FINALE ===== -->
+        <section class="screen" id="screen-8">
+            <div class="panel final" id="finalPanel">
+                <div class="chapter">Victory · The Love That Crosses Every Border</div>
+                <div class="heart">❤️‍🔥</div>
+                <h2>Happy Birthday, Jerrymo.</h2>
+                <div class="divider"></div>
+                <p>I wish I could be in Germany right now. Or you were here. I wish I could watch your eyes open on your
+                    birthday morning,
+                    trace the sleepy smile across your face with my fingertips, and press the first "happy birthday" of
+                    the day directly against your lips instead of typing it into a screen.</p>
+                <p>And give you all the love in this world, right in the bed. Pull you closer to my body and hug you
+                    like
+                    there is no tomorrow.</p>
+                <p>But even from thousands of miles away, Jerrymo, I need you to feel this in your bones:</p>
+                <div class="quote" style="text-align:left">I have watched our story unfold like a poem the universe has
+                    been writing since long before we were born. From two strangers who crossed paths in a college
+                    canteen, to fighting every odd the world threw at us, to standing
+                    across nations and still choosing each other every single morning. Jerrymo, we accomplished the most
+                    difficult thing in this. To find "your person".</div>
+                <p style="margin-top:24px">And if the universe unraveled and rewound and gave me every possible version
+                    of existence to live through…</p>
+                <h2 style="font-size:clamp(32px,8vw,58px);line-height:1.15" class="golden-text">
+                    I would find you, Jerrymo.<br>
+                    I would choose you.<br>
+                    <span class="rose-text">In every lifetime.</span><br>
+                    <span class="rose-text">Without hesitation.</span>
+                </h2>
+                <div class="divider"></div>
+                <p>Now go live this birthday like the beautiful, ridiculously lovable person you are. Your
+                    wife is on the other side of the ocean, waiting for the day she gets to hug you.</p>
+                <p style="font-size:14px;color:#756d63;margin-top:12px">With every beat of my heart — yours, always. 🤍
+                </p>
+                <div style="margin-top:28px">
+                    <button class="btn" onclick="next()">ONE MORE GIFT FOR YOU 🎁</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SCREEN 9: GTA 6 COUNTDOWN ===== -->
+        <section class="screen" id="screen-9">
+            <div class="panel gta-screen" id="gtaPanel">
+                <div class="gta-badge">🎮 Bonus Gift · Because I Know Your Heart</div>
+                <div class="gta-title">GTA VI</div>
+                <p class="gta-subtitle">Your most anticipated game is almost here, Jerrymo.</p>
+                <div class="divider"></div>
+                <div id="gta-countdown-wrapper">
+                    <div class="countdown-grid" id="countdown-grid">
+                        <div class="countdown-unit">
+                            <span class="countdown-num" id="cd-days">--</span>
+                            <span class="countdown-label">Days</span>
+                        </div>
+                        <div class="countdown-unit">
+                            <span class="countdown-num" id="cd-hours">--</span>
+                            <span class="countdown-label">Hours</span>
+                        </div>
+                        <div class="countdown-unit">
+                            <span class="countdown-num" id="cd-mins">--</span>
+                            <span class="countdown-label">Minutes</span>
+                        </div>
+                        <div class="countdown-unit">
+                            <span class="countdown-num" id="cd-secs">--</span>
+                            <span class="countdown-label">Seconds</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="gta-note">November 19, 2026 · PlayStation 5 </p>
+                <div class="divider"></div>
+                <p style="color:#7a9070;font-style:italic;font-size:15px;line-height:1.9;margin-bottom:24px">
+                    I may not be able to play it with you in person yet —<br>
+                    but I'll be right there on the other end of the screen,<br>
+                    watching you get lost in another world,<br>
+                    <em>and loving every second of it.</em>
+                </p>
+                <button class="btn" onclick="restart()" style="border-color:rgba(127,255,90,0.4);color:#a8e890">RELIVE
+                    OUR STORY ✦</button>
+            </div>
+        </section>
+
+        <div class="nav" id="nav"></div>
+    </div>
+
+    <script>
+        // ========== Core Navigation ==========
+        const screens = [...document.querySelectorAll('.screen')];
+        const nav = document.getElementById('nav');
+        const progress = document.getElementById('progress');
+        let n = 0, hits = 0;
+
+        function update() {
+            screens.forEach((s, i) => s.classList.toggle('active', i === n));
+            progress.style.width = ((n) / (screens.length - 1) * 100) + '%';
+            nav.innerHTML = screens.map((_, i) =>
+                '<span class="dot ' + (i === n ? 'on' : '') + '"></span>'
+            ).join('');
+            nav.style.display = 'flex';
+
+            // Initialise boss screen fresh every time it's entered
+            if (n === 4) {
+                hits = 0;
+                document.getElementById('bossbar').style.width = '0';
+                document.getElementById('hits').textContent = 'Deflections: 0 / 3';
+                document.getElementById('attack').textContent = bossAttacks[0];
+                document.getElementById('bossmsg').textContent = 'Every click of that button is a promise, Jerrymo — the kind that crosses oceans.';
+            }
+        }
+
+        function next() {
+            if (n < screens.length - 1) {
+                n++;
+                update();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Spawn extra sparkles on final screen
+                if (n === screens.length - 1) {
+                    spawnFinalSparkles();
+                }
+            }
+        }
+
+        function restart() {
+            n = 0;
+            hits = 0;
+            update();
+        }
+
+        // ========== Boss Parry ==========
+        const bossAttacks = [
+            '"You will never wake up beside each other."',
+            '"The time zones will wear you both down."',
+            '"Nobody around you believes this can last."'
+        ];
+
+        const bossDeflections = [
+            'Not true. Every morning without fail, your voice is the very first thing I reach for — and nothing about that has ever felt far away.',
+            'Six hours between us, and still — you are the first thought I wake into and the last thing I hold before I sleep. Time never separated us. It just gave us more to say when we finally found each other.',
+            'We have never needed anyone else\'s belief. What we have has always been more than enough — for both of us.'
+        ];
+
+        let parryLocked = false;
+
+        function parry() {
+            if (parryLocked || hits >= 3) return;
+
+            parryLocked = true;
+            hits++;
+
+            const button = document.querySelector('.parry');
+
+            document.getElementById('bossbar').style.width = (hits / 3 * 100) + '%';
+            document.getElementById('hits').textContent = 'Deflections: ' + hits + ' / 3';
+            document.getElementById('attack').textContent = bossDeflections[hits - 1];
+
+            // Completely disable the button
+            button.disabled = true;
+            button.style.pointerEvents = 'none';
+            button.style.opacity = '0.4';
+
+            if (hits >= 3) {
+
+                setTimeout(() => {
+                    document.getElementById('bossmsg').innerHTML =
+                        '<strong style="color:#d4af5a">The distance never stood a chance.</strong><br><br>' +
+                        'It tried, Jerrymo. It really did. But you cannot defeat something that refuses to stop choosing each other — every single day.';
+
+                    setTimeout(next, 4000);
+
+                }, 7000);
+
+            } else {
+
+                setTimeout(() => {
+                    document.getElementById('attack').textContent = bossAttacks[hits];
+
+                    // Unlock only after the next attack is revealed
+                    button.disabled = false;
+                    button.style.pointerEvents = 'auto';
+                    button.style.opacity = '1';
+                    parryLocked = false;
+
+                }, 7000);
+            }
+        }
+
+        // ========== Ambient Particles ==========
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const colors = ['rgba(212, 175, 90, 0.4)', 'rgba(196, 107, 107, 0.3)', 'rgba(168, 50, 44, 0.2)', 'rgba(240, 217, 156, 0.3)'];
+
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 3 + 1;
+                p.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${Math.random() * 100}%;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    animation-duration: ${Math.random() * 15 + 10}s;
+                    animation-delay: ${Math.random() * 10}s;
+                `;
+                container.appendChild(p);
+            }
+        }
+
+        // ========== Final Screen Sparkles ==========
+        function spawnFinalSparkles() {
+            const panel = document.getElementById('finalPanel');
+            for (let i = 0; i < 20; i++) {
+                const s = document.createElement('div');
+                s.className = 'sparkle';
+                s.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    animation-delay: ${Math.random() * 3}s;
+                    animation-duration: ${1.5 + Math.random() * 2}s;
+                `;
+                panel.appendChild(s);
+            }
+        }
+
+        // ========== GTA 6 Countdown ==========
+        function updateCountdown() {
+            const release = new Date('2026-11-19T00:00:00').getTime();
+            const now = Date.now();
+            const diff = release - now;
+
+            if (diff <= 0) {
+                // Already released!
+                const grid = document.getElementById('countdown-grid');
+                if (grid) {
+                    grid.innerHTML = '<div class="gta-released">🎮 IT\'S OUT. GO PLAY IT, JERRYMO. 🎮</div>';
+                }
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            const pad = n => String(n).padStart(2, '0');
+            document.getElementById('cd-days').textContent = pad(days);
+            document.getElementById('cd-hours').textContent = pad(hours);
+            document.getElementById('cd-mins').textContent = pad(minutes);
+            document.getElementById('cd-secs').textContent = pad(seconds);
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ========== Init ==========
+        createParticles();
+        update();
+    </script>
+</body>
+
+</html>
